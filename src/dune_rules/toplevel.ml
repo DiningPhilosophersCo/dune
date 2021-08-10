@@ -134,12 +134,12 @@ let setup_rules t =
     (Action_builder.symlink ~src:(Path.build src) ~dst)
   >>> setup_module_rules t
 
-let print_toplevel_init_file ~include_paths ~files_to_load =
+let print_toplevel_init_file ~separator ~include_paths ~files_to_load =
   let includes = Path.Set.to_list include_paths in
   List.iter includes ~f:(fun p ->
-      Printf.printf "#directory %S;;\n" (Path.to_absolute_filename p));
+      Printf.printf "#directory %S%s\n" (Path.to_absolute_filename p) separator);
   List.iter files_to_load ~f:(fun p ->
-      Printf.printf "#load %S;;\n" (Path.to_absolute_filename p))
+      Printf.printf "#load %S%s\n" (Path.to_absolute_filename p) separator)
 
 module Stanza = struct
   let setup ~sctx ~dir ~(toplevel : Dune_file.Toplevel.t) =

@@ -24,7 +24,7 @@ val make :
   -> t
 
 val print_toplevel_init_file :
-  include_paths:Path.Set.t -> files_to_load:Path.t list -> unit
+  separator:string -> include_paths:Path.Set.t -> files_to_load:Path.t list -> unit
 
 module Stanza : sig
   val setup :

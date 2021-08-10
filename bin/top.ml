@@ -28,6 +28,8 @@ let term =
   and+ dir = Arg.(value & pos 0 string "" & Arg.info [] ~docv:"DIR")
   and+ ctx_name =
     Common.context_arg ~doc:{|Select context where to build/run utop.|}
+  and+ reason_mode =
+   Arg.(value & flag & info ["reason-mode"] ~doc:"Prints init rules in Reason compatible mode")
   in
   let config = Common.init common in
   Scheduler.go ~common ~config (fun () ->
@@ -67,7 +69,8 @@ let term =
                 ext = Dune_engine.Mode.compiled_lib_ext Byte
                 || ext = Dune_engine.Cm_kind.ext Cmo)
           in
-          Dune_rules.Toplevel.print_toplevel_init_file ~include_paths
+          let separator = if reason_mode then ";" else ";;" in
+          Dune_rules.Toplevel.print_toplevel_init_file ~separator ~include_paths
             ~files_to_load;
           Memo.Build.return ()))
 
