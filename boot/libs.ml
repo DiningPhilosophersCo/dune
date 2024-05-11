@@ -95,18 +95,26 @@ let local_libraries =
   ]
 
 let build_flags =
-  [ ([ "win32"; "win64"; "mingw"; "mingw64" ],
-    [ "-ccopt"; "-D_UNICODE"; "-ccopt"; "-DUNICODE" ])
+  [ ("win32", [ "-ccopt"; "-D_UNICODE"; "-ccopt"; "-DUNICODE" ])
+  ; ("win64", [ "-ccopt"; "-D_UNICODE"; "-ccopt"; "-DUNICODE" ])
+  ; ("mingw", [ "-ccopt"; "-D_UNICODE"; "-ccopt"; "-DUNICODE" ])
+  ; ("mingw64", [ "-ccopt"; "-D_UNICODE"; "-ccopt"; "-DUNICODE" ])
   ]
 
 let link_flags =
-  [ ([ "macosx" ],
+  [ ("macosx",
     [ "-cclib"
     ; "-framework CoreFoundation"
     ; "-cclib"
     ; "-framework CoreServices"
     ])
-  ; ([ "win32"; "win64"; "mingw"; "mingw64" ],
+  ; ("win32",
     [ "-cclib"; "-lshell32"; "-cclib"; "-lole32"; "-cclib"; "-luuid" ])
-  ; ([ "beos" ], [ "-cclib"; "-lbsd" ])
+  ; ("win64",
+    [ "-cclib"; "-lshell32"; "-cclib"; "-lole32"; "-cclib"; "-luuid" ])
+  ; ("mingw",
+    [ "-cclib"; "-lshell32"; "-cclib"; "-lole32"; "-cclib"; "-luuid" ])
+  ; ("mingw64",
+    [ "-cclib"; "-lshell32"; "-cclib"; "-lole32"; "-cclib"; "-luuid" ])
+  ; ("beos", [ "-cclib"; "-lbsd" ])
   ]
